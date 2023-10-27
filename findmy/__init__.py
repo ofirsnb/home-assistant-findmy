@@ -125,7 +125,7 @@ def send_mqtt_data(force_sync, device):
     if not force_sync and device_update and len(device_update) > 0 and device_update[0] == last_update:
         return
 
-    device_id = get_device_id(device_name)
+    device_id = get_device_id(device_name) + '_fm'
     device_updates[device_name] = (last_update, location_name, device_id)
 
     device_topic = f"homeassistant/device_tracker/{device_id}/"
@@ -166,8 +166,8 @@ def send_mqtt_data(force_sync, device):
 
 
 def send_data_items(force_sync):
-    for device in load_data(cache_file_location_items):
-        send_mqtt_data(force_sync, device)
+    for item in load_data(cache_file_location_items):
+        send_mqtt_data(force_sync, item)
 
 
 def send_data_devices(force_sync):
